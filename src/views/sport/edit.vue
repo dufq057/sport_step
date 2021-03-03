@@ -6,7 +6,7 @@
 
     <van-notice-bar style="margin-top: 10px" :scrollable="false" wrapable text="刷步时间可为空,或者为正整数，0,1,2,3到23，请勿填写其他数字" color="#1989fa" background="#ecf9ff" left-icon="volume-o"/>
 
-    <van-form @submit="addForm">
+    <van-form @submit="editForm">
       <div style="background-color: #FAFAFA;padding: 20px">
         <van-field
             readonly
@@ -107,15 +107,15 @@
     <router-view />
     <van-tabbar route placeholder>
       <van-tabbar-item replace to="/" icon="home-o">首页</van-tabbar-item>
-      <van-tabbar-item replace to="/user" icon="friends-o">我的</van-tabbar-item>
+      <van-tabbar-item replace to="/setting/index" icon="friends-o">我的</van-tabbar-item>
     </van-tabbar>
   </div>
 </template>
 
 <script>
-import {sportSave,jdDel,sportEditSave,sportEdit,run,updateStatus} from '@/util/request'
+import {sportEdit, sportEditSave} from '@/util/sport'
 import {Toast} from "vant";
-import { Dialog } from 'vant';
+
 export default {
   data() {
     return {
@@ -155,7 +155,6 @@ export default {
           this.typeName = '悦动圈';
         }
         this.stepType = res.data.stepType+"";
-        console.log(this.stepType)
         this.stepTime = res.data.stepTime;
         this.stepMin = res.data.stepMin;
         this.stepMax = res.data.stepMax;
@@ -171,38 +170,7 @@ export default {
       this.type = value.type;
       this.showPicker = false;
     },
-    addButton(){
-      this.show = true
-    },
-    updateStatus(data) {
-      updateStatus(data).then(res=>{
-        if(res.code==0){
-          Toast.success("操作成功");
-        }else {
-          Toast.fail(res.msg);
-        }
-      })
-    },
-    del(id){
-      Dialog.confirm({
-        message: '是否确认删除',
-      })
-          .then(() => {
-            jdDel({id:id}).then(res=>{
-              if(res.code==0){
-                Toast.success("添加成功");
-              }else {
-                Toast.fail(res.msg);
-              }
-              this.queryList();
-            })
-          })
-          .catch(() => {
-
-          });
-
-    },
-    addForm(data){
+    editForm(data){
       data.type = this.type;
       data.id = this.$route.query.id;
       const that = this;
@@ -214,33 +182,14 @@ export default {
           Toast.fail(res.msg);
         }
         setTimeout(function () {
-          that.$router.push("/");
-        },3*1000)
-
-      })
-    },
-    run(id){
-      run({id:id}).then(res=>{
-        if(res.code==0){
-          Toast.success("操作成功,请稍后查询结果");
-        }else {
-          Toast.fail(res.msg);
-        }
-        const that = this
-        setTimeout(function () {
-          that.queryList()
+          that.$router.push("/sport/index");
         },3*1000)
 
       })
     },
     cancel(){
-      this.$router.push("/");
+      this.$router.push("/sport/index");
     },
-    submit(){
-    },
-    logOut(){
-      this.$router.push("login");
-    }
 
   },
 };

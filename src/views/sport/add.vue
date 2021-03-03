@@ -107,13 +107,13 @@
     <router-view />
     <van-tabbar route placeholder>
       <van-tabbar-item replace to="/" icon="home-o">首页</van-tabbar-item>
-      <van-tabbar-item replace to="/user" icon="friends-o">我的</van-tabbar-item>
+      <van-tabbar-item replace to="/setting/index" icon="friends-o">我的</van-tabbar-item>
     </van-tabbar>
   </div>
 </template>
 
 <script>
-import {sportSave,jdList,jdDel,jdEditSave,jdEdit,run,updateStatus} from '@/util/request'
+import {sportSave,jdDel,run,updateStatus} from '@/util/sport'
 import {Toast} from "vant";
 import { Dialog } from 'vant';
 export default {
@@ -188,26 +188,6 @@ export default {
         }
       })
     },
-    queryList(){
-      jdList().then(res=>{
-        if(res.code==0){
-          this.list = res.data
-        }else {
-          Toast.fail(res.msg);
-        }
-        this.isLoading = false;
-      })
-    },
-    edit(id){
-      this.editShow = true
-      jdEdit({id:id}).then(res=>{
-        if(res.code==0){
-          this.editDate = res.data
-        }else {
-          Toast.fail(res.msg);
-        }
-      })
-    },
     del(id){
       Dialog.confirm({
         message: '是否确认删除',
@@ -238,7 +218,7 @@ export default {
           Toast.fail(res.msg);
         }
         setTimeout(function () {
-          that.$router.push("/");
+          that.$router.push("/sport/index");
         },3*1000)
 
       })
@@ -258,13 +238,8 @@ export default {
       })
     },
     cancel(){
-      this.$router.push("/");
+      this.$router.push("/sport/index");
     },
-    submit(){
-    },
-    logOut(){
-      this.$router.push("login");
-    }
 
   },
 };

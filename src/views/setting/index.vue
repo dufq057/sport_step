@@ -1,8 +1,9 @@
 <template>
   <div>
     <div style="text-align: center">
-      <h2>小程序配置修改</h2>
+      <h2>我的信息</h2>
     </div>
+    <van-notice-bar style="margin-top: 10px" scrollable text="待开发" color="#1989fa" background="#ecf9ff" left-icon="volume-o"/>
 <!--    <van-field  label-width="7.2em" label="appId：" :value="settings.appId" disabled />-->
 <!--    <van-field-->
 <!--        v-model="settings.siteName"-->
@@ -81,46 +82,30 @@
     <router-view />
     <van-tabbar route placeholder >
       <van-tabbar-item replace to="/" icon="home-o">首页</van-tabbar-item>
-      <van-tabbar-item replace to="/setting" icon="friends-o">我的</van-tabbar-item>
+      <van-tabbar-item replace to="/setting/index" icon="friends-o">我的</van-tabbar-item>
     </van-tabbar>
   </div>
 </template>
 
 <script>
-import request,{appSettingQuery} from '@/util/request'
 import {Toast} from "vant";
+import {token} from "@/util/common";
+
 export default {
   data() {
     return {
-      settings: {
-      },
     };
   },
   mounted(){
   },
   methods:{
-    submit(){
-      appSettingEdit(this.settings).then(res =>{
-        if(res.data.data===0){
-          Toast.success("修改成功");
-        }else{
-          Toast.fail(res.data.msg);
-        }
-      })
-    },
     logOut(){
+      localStorage.removeItem(token);
       this.$router.push("login");
     }
 
   },
 };
-export function appSettingEdit(query) {
-  return request({
-    url: '/v1/ma/appSetting/edit',
-    method: 'post',
-    params: query
-  })
-}
 </script>
 
 <style>

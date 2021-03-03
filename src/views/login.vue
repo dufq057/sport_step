@@ -1,7 +1,7 @@
 <template>
   <div style="margin-top: 200px">
     <div style="text-align: center">
-      <h2>欢迎来到sport_step云系统</h2>
+      <h2>欢迎来到神马都是浮云</h2>
       <h6 style="color: red">注：本系统不支持注册</h6>
       <h6 style="color: red">注册账号，请前往小程序授权登录绑定手机号即可</h6>
     </div>
@@ -16,7 +16,6 @@
       <van-button round block type="primary" @click="submit">登录</van-button>
     </div>
 
-
     <van-popup round v-model="show" style="width: 200px;font-size: 14px;padding: 10px">
       <div style="text-align: center;font-size: 16px;font-weight: bold;color:red">请选择身份</div>
       <div v-for="(item,i) in list" :key="i" style="margin-top: 10px">
@@ -28,6 +27,7 @@
 <script>
 import {login} from '@/util/request'
 import {Toast} from 'vant';
+import { token } from '@/util/common';
 
 export default {
   data() {
@@ -43,7 +43,7 @@ export default {
       login(data).then(res => {
         if (res.code === 0) {
           if(res.data.token){
-            localStorage.setItem('sportToken', res.data.token)
+            localStorage.setItem(token, res.data.token)
             this.$router.push({path: '/'})
           }else {
             this.list = res.data;
@@ -59,7 +59,7 @@ export default {
       login(data).then(response => {
         if (response.code === 0) {
           if(response.data.token){
-            localStorage.setItem('sportToken', response.data.token)
+            localStorage.setItem(token, response.data.token)
             this.$router.push({path: '/'})
           }
         } else {
