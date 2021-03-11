@@ -2,8 +2,6 @@
   <div style="margin-top: 200px">
     <div style="text-align: center">
       <h2>欢迎来到神马都是浮云</h2>
-      <h6 style="color: red">注：本系统不支持注册</h6>
-      <h6 style="color: red">注册账号，请前往小程序授权登录绑定手机号即可</h6>
     </div>
     <van-field
         v-model="mobile"
@@ -12,8 +10,18 @@
         placeholder="输入手机号码"
         :rules="[{ required: true, message: '输入手机号码' }]"
     />
+    <van-field
+        v-model="password"
+        type="text"
+        label="密码："
+        placeholder="输入密码"
+        :rules="[{ required: true, message: '输入密码' }]"
+    />
     <div style="margin: 20px;">
       <van-button round block type="primary" @click="submit">登录</van-button>
+    </div>
+    <div style="margin: 20px;">
+      <van-button round block type="default" @click="reg">注册</van-button>
     </div>
 
     <van-popup round v-model="show" style="width: 200px;font-size: 14px;padding: 10px">
@@ -33,13 +41,17 @@ export default {
   data() {
     return {
       mobile: null,
+      password: null,
       list: [],
       show: false,
     };
   },
   methods: {
+    reg(){
+      this.$router.push({path: '/register'})
+    },
     submit: function () {
-      const data = {mobile: this.mobile}
+      const data = {mobile: this.mobile,password:this.password}
       login(data).then(res => {
         if (res.code === 0) {
           if(res.data.token){

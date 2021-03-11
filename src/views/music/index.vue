@@ -1,9 +1,8 @@
 <template>
   <div>
     <div style="text-align: center">
-      <h2>欢迎来到sport_step云系统</h2>
+      <h2>欢迎来到jd_sign云系统</h2>
       <h5 style="color: orange">每执行一次任务消耗1积分</h5>
-      <h5 style="color: orange">累计模式的任务，每天会消耗10积分</h5>
     </div>
     <div style="padding: 0 20px;">
       <van-button @click="addButton" round type="primary" block color="linear-gradient(to left, #ff6034, #ee0a24)">新增任务</van-button>
@@ -14,14 +13,6 @@
         <van-row>
           <van-col span="6">账号：</van-col>
           <van-col span="18">{{ item.account }}</van-col>
-        </van-row>
-        <van-row style="margin-top: 10px">
-          <van-col span="6">接口：</van-col>
-          <van-col span="18">
-            <span v-if="item.type==3">小米运动</span>
-            <span v-if="item.type==4">乐心健康</span>
-            <span v-if="item.type==5">悦动圈</span>
-          </van-col>
         </van-row>
         <van-row style="margin-top: 10px">
           <van-col span="6">状态：</van-col>
@@ -38,22 +29,6 @@
         <van-row style="margin-top: 10px">
           <van-col span="6">执行次数：</van-col>
           <van-col span="18">{{ item.runNum }}</van-col>
-        </van-row>
-        <van-row style="margin-top: 10px">
-          <van-col span="6">目标步数：</van-col>
-          <van-col span="18">{{ item.stepToday }}</van-col>
-        </van-row>
-        <van-row style="margin-top: 10px">
-          <van-col span="6">执行步数：</van-col>
-          <van-col span="18">{{ item.stepRunNum }}</van-col>
-        </van-row>
-        <van-row style="margin-top: 10px">
-          <van-col span="6">刷步模式：</van-col>
-          <van-col span="18">{{ item.stepType ==1?'秒刷':'累计'}}</van-col>
-        </van-row>
-        <van-row style="margin-top: 10px">
-          <van-col span="6">刷步时间：</van-col>
-          <van-col span="18">{{ item.stepTime}}</van-col>
         </van-row>
         <van-row style="margin-top: 10px">
           <van-col span="6">代刷开关：</van-col>
@@ -74,6 +49,8 @@
         <h3>暂无数据</h3>
       </div>
 
+
+
     </div>
 
 
@@ -86,14 +63,12 @@
 </template>
 
 <script>
-import {sportList,jdDel,run,updateStatus} from '@/util/sport'
+import {jdSave,musicList,jdDel,jdEditSave,run} from '@/util/music'
 import {Toast} from "vant";
 import { Dialog } from 'vant';
 export default {
   data() {
     return {
-      type: '',
-      columns: ['杭州', '宁波', '温州', '嘉兴', '湖州'],
       show: false,
       editShow: false,
       switchChecked: false,
@@ -110,12 +85,8 @@ export default {
     this.queryList()
   },
   methods:{
-    onConfirm(value){
-      this.type = value;
-      this.showPicker = false;
-    },
     addButton(){
-      this.$router.push("/sport/add");
+      this.$router.push("/music/add");
     },
     open(item){
       if(item.isOpen==1){
@@ -124,16 +95,8 @@ export default {
           message: '是否关闭代刷功能？',
         }).then(() => {
 
-
-          updateStatus({id:item.id,isOpen:0}).then(res=>{
-            if(res.code==0){
-              Toast.success("操作成功");
-              item.isOpen = 0
-            }else {
-              Toast.fail(res.msg);
-            }
-          })
-
+          this.updateStatus({id:item.id,isOpen:0})
+          item.isOpen = 0
         }).catch(() => {
 
         });
@@ -142,16 +105,8 @@ export default {
           title: '提醒',
           message: '是否打开代刷功能？',
         }).then(() => {
-
-          updateStatus({id:item.id,isOpen:1}).then(res=>{
-            if(res.code==0){
-              Toast.success("操作成功");
-              item.isOpen = 1
-            }else {
-              Toast.fail(res.msg);
-            }
-          })
-
+          this.updateStatus({id:item.id,isOpen:1})
+          item.isOpen = 1
         }).catch(() => {
         });
       }
@@ -160,8 +115,17 @@ export default {
     onRefresh() {
       this.queryList()
     },
+    updateStatus(data) {
+      updateStatus(data).then(res=>{
+        if(res.code==0){
+          Toast.success("操作成功");
+        }else {
+          Toast.fail(res.msg);
+        }
+      })
+    },
     queryList(){
-      sportList().then(res=>{
+      musicList().then(res=>{
         if(res.code==0){
           this.list = res.data
         }else {
@@ -171,7 +135,7 @@ export default {
       })
     },
     edit(id){
-      this.$router.push({path: '/sport/edit', query: {id: id}});
+      this.$router.push({path: '/jd/edit', query: {id: id}});
     },
     del(id){
       Dialog.confirm({
@@ -192,10 +156,25 @@ export default {
       });
 
     },
+    addForm(data){
+      const that = this;
+      jdSave(data).then(res=>{
+        if(res.code==0){
+          Toast.success("添加成功");
+          this.show = false
+        }else {
+          Toast.fail(res.msg);
+        }
+        setTimeout(function () {
+          that.queryList()
+        },3*1000)
+
+      })
+    },
     run(id){
       run({id:id}).then(res=>{
         if(res.code==0){
-          Toast.success("操作成功");
+          Toast.success("操作成功,请稍后查询结果");
         }else {
           Toast.fail(res.msg);
         }
@@ -205,6 +184,23 @@ export default {
         },3*1000)
 
       })
+    },
+    editForm(){
+      let ptKey = this.editDate.ptKey;
+      let ptPin = this.editDate.ptPin;
+      let id = this.editDate.id;
+      jdEditSave({ptKey:ptKey,ptPin:ptPin,id:id}).then(res=>{
+        if(res.code==0){
+          Toast.success("修改成功");
+          this.editShow = false
+        }else {
+          Toast.fail(res.msg);
+        }
+      })
+    },
+    cancel(){
+      this.show = false
+      this.editShow = false
     },
 
   },

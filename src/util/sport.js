@@ -8,7 +8,7 @@ export function appSettingQuery() {
 }
 export function queryUser(query) {
     return service({
-        url: '/v1/ma/queryUser',
+        url: '/v1/sport/queryUser',
         method: 'post',
         params: query
     })

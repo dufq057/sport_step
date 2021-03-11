@@ -48,3 +48,17 @@ export function login(query) {
         params: query
     })
 }
+export function register(query) {
+    return service({
+        url: '/v1/sport/register',
+        method: 'post',
+        params: query
+    })
+}
+export function buildInviteCode(query) {
+    return service({
+        url: '/v1/sport/buildInviteCode',
+        method: 'post',
+        params: query
+    })
+}

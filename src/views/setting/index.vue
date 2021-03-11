@@ -3,17 +3,9 @@
     <div style="text-align: center">
       <h2>我的信息</h2>
     </div>
-    <van-notice-bar style="margin-top: 10px" scrollable text="待开发" color="#1989fa" background="#ecf9ff" left-icon="volume-o"/>
+    <van-notice-bar style="margin-top: 10px;margin-bottom: 10px" scrollable text="功能待完善" color="#1989fa" background="#ecf9ff" left-icon="volume-o"/>
 <!--    <van-field  label-width="7.2em" label="appId：" :value="settings.appId" disabled />-->
-<!--    <van-field-->
-<!--        v-model="settings.siteName"-->
-<!--        type="text"-->
-<!--        label="小程序名称："-->
-<!--        placeholder="输入小程序名称"-->
-<!--        autosize-->
-<!--        label-width="7.2em"-->
-<!--        :rules="[{ required: true, message: '请输入小程序名称' }]"-->
-<!--    />-->
+    <van-cell icon="location-o" title="推荐码" is-link label="修改或关联推荐码" to="/setting/tuiJianMa"/>
 <!--    <van-field-->
 <!--        v-model="settings.maVersion"-->
 <!--        type="text"-->
@@ -94,6 +86,7 @@ import {token} from "@/util/common";
 export default {
   data() {
     return {
+
     };
   },
   mounted(){

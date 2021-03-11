@@ -2,7 +2,7 @@
   <div>
     <div style="text-align: center">
       <h2>欢迎来到jd_sign云系统</h2>
-      <h5 style="color: orange">内测阶段，不消耗积分，内测结束，数据删除</h5>
+      <h5 style="color: orange">每执行一次任务消耗1积分</h5>
     </div>
     <div style="padding: 0 20px;">
       <van-button @click="addButton" round type="primary" block color="linear-gradient(to left, #ff6034, #ee0a24)">新增任务</van-button>
@@ -109,7 +109,8 @@
 </template>
 
 <script>
-import {jdSave,jdList,jdDel,jdEditSave,run,updateStatus} from '@/util/jd'
+import {jdSave,jdList,jdDel,jdEditSave,run} from '@/util/jd'
+import {updateStatus} from '@/util/sport'
 import {Toast} from "vant";
 import { Dialog } from 'vant';
 export default {
@@ -141,8 +142,15 @@ export default {
           message: '是否关闭代刷功能？',
         }).then(() => {
 
-          this.updateStatus({id:item.id,isOpen:0})
-          item.isOpen = 0
+          updateStatus({id:item.id,isOpen:0}).then(res=>{
+            if(res.code==0){
+              Toast.success("操作成功");
+              item.isOpen = 0
+            }else {
+              Toast.fail(res.msg);
+            }
+          })
+
         }).catch(() => {
 
         });
@@ -151,8 +159,15 @@ export default {
           title: '提醒',
           message: '是否打开代刷功能？',
         }).then(() => {
-          this.updateStatus({id:item.id,isOpen:1})
-          item.isOpen = 1
+          updateStatus({id:item.id,isOpen:1}).then(res=>{
+            if(res.code==0){
+              Toast.success("操作成功");
+              item.isOpen = 1
+            }else {
+              Toast.fail(res.msg);
+            }
+          })
+
         }).catch(() => {
         });
       }
@@ -160,15 +175,6 @@ export default {
     },
     onRefresh() {
       this.queryList()
-    },
-    updateStatus(data) {
-      updateStatus(data).then(res=>{
-        if(res.code==0){
-          Toast.success("操作成功");
-        }else {
-          Toast.fail(res.msg);
-        }
-      })
     },
     queryList(){
       jdList().then(res=>{

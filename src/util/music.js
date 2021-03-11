@@ -1,11 +1,5 @@
 import service from "@/util/request";
 
-export function appSettingQuery() {
-    return service({
-        url: '/v1/ma/appSetting/query',
-        method: 'post',
-    })
-}
 export function queryUser(query) {
     return service({
         url: '/v1/ma/queryUser',
@@ -41,9 +35,9 @@ export function jdSave(query) {
         params: query
     })
 }
-export function jdList(query) {
+export function musicList(query) {
     return service({
-        url: '/v1/jd/list',
+        url: '/v1/music/list',
         method: 'post',
         params: query
     })

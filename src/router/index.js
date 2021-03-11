@@ -20,6 +20,14 @@ const routes = [
             requiresAuth: false
         }
     },
+    {
+        path: '/register',
+        name: 'register',
+        component: () => import( '../views/register.vue'),
+        meta: {
+            requiresAuth: false
+        }
+    },
     // {
     //     path: '/wallet',
     //     name: 'wallet',
@@ -80,6 +88,38 @@ const routes = [
         path: '/jd/edit',
         name: '刷步修改任务',
         component: () => import( '../views/jd/edit.vue'),
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/music/index',
+        name: '网易云',
+        component: () => import( '../views/music/index'),
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/music/add',
+        name: '网易云',
+        component: () => import( '../views/music/add'),
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/music/edit',
+        name: '网易云',
+        component: () => import( '../views/music/edit'),
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/setting/tuiJianMa',
+        name: '推荐码',
+        component: () => import( '../views/setting/tuiJianMa'),
         meta: {
             requiresAuth: true
         }
