@@ -28,9 +28,9 @@ export function applyWithdrawal(query) {
         params: query
     })
 }
-export function jdSave(query) {
+export function save(query) {
     return service({
-        url: '/v1/jd/save',
+        url: '/v1/music/save',
         method: 'post',
         params: query
     })
@@ -49,37 +49,16 @@ export function jdDel(query) {
         params: query
     })
 }
-export function jdEdit(query) {
+export function musicEditSave(query) {
     return service({
-        url: '/v1/jd/edit',
-        method: 'post',
-        params: query
-    })
-}
-export function jdEditSave(query) {
-    return service({
-        url: '/v1/jd/editSave',
+        url: '/v1/music/editSave',
         method: 'post',
         params: query
     })
 }
 export function run(query) {
     return service({
-        url: '/v1/jd/run',
-        method: 'post',
-        params: query,
-    })
-}
-export function qrLogin(query) {
-    return service({
-        url: '/v1/jd/qrLogin',
-        method: 'get',
-        params: query,
-    })
-}
-export function checkLogin(query) {
-    return service({
-        url: '/v1/jd/checkLogin',
+        url: '/v1/music/run',
         method: 'post',
         params: query,
     })

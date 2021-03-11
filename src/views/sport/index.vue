@@ -3,7 +3,7 @@
     <div style="text-align: center">
       <h2>欢迎来到sport_step云系统</h2>
       <h5 style="color: orange">每执行一次任务消耗1积分</h5>
-      <h5 style="color: orange">累计模式的任务，每天会消耗10积分</h5>
+      <h5 style="color: orange;padding: 0 20px">累计模式的任务，每天会消耗10积分【五万步数以下，有效防止好友恶意举报，推荐开启】</h5>
     </div>
     <div style="padding: 0 20px;">
       <van-button @click="addButton" round type="primary" block color="linear-gradient(to left, #ff6034, #ee0a24)">新增任务</van-button>

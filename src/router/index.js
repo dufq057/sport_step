@@ -21,6 +21,14 @@ const routes = [
         }
     },
     {
+        path: '/resetPwd',
+        name: 'resetPwd',
+        component: () => import( '../views/resetPwd.vue'),
+        meta: {
+            requiresAuth: false
+        }
+    },
+    {
         path: '/register',
         name: 'register',
         component: () => import( '../views/register.vue'),

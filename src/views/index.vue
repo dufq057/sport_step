@@ -8,7 +8,7 @@
       <van-grid :column-num="3" icon-size="50px">
         <van-grid-item icon="https://txc.gtimg.com/data/286658/2020/1216/ebcddfd97a79150722875469e1c435a5.png" to="/sport/index" text="运动步数" />
         <van-grid-item icon="https://txc.gtimg.com/data/286658/2021/0303/8f65680b77c0a04c427dd0455e4f8cfa.png" to="/jd/index" text="京东豆豆" />
-<!--        <van-grid-item icon="https://txc.gtimg.com/data/286658/2021/0303/8f65680b77c0a04c427dd0455e4f8cfa.png" to="/music/index" text="网抑云" />-->
+        <van-grid-item icon="https://txc.gtimg.com/data/286658/2020/1219/64aa5aae29b6033b59cacea4a91c7229.png" to="/music/index" text="网抑云" />
       </van-grid>
     </div>
 

@@ -4,23 +4,45 @@
       <h2>修改任务</h2>
     </div>
     <div style="padding: 0 20px;">
+      <van-notice-bar style="margin-top: 10px" :scrollable="true" wrapable text="有部分账号一次刷不够，可以多写几次" color="#1989fa" background="#ecf9ff" left-icon="volume-o"/>
 
 
+      <van-form @submit="editForm">
+        <div style="background-color: #FAFAFA;padding: 20px">
 
-      <van-form>
-        <h5 style="text-align: center">请截图保存二维码用APP扫码<br>或使用浏览器打开点击授权直接授权</h5>
-        <div style="background-color: #FAFAFA;text-align: center">
-          <van-image
-              width="200"
-              height="200"
-              :src="qrImg"
-          />
-        </div>
-        <div>
-          <van-button round type="info" block native-type="submit" @click="shouquan" style="margin-right: 10px;" color="orangered">一键授权</van-button>
-        </div>
-        <div style="margin-top: 16px;">
-          <van-button round block type="default" @click="cancel">返回</van-button>
+          <div>
+            <van-field
+                type="text"
+                autosize
+                v-model="account"
+                name="account"
+                label="手机号："
+                placeholder="输入手机号或邮箱"
+                :rules="[{ required: true, message: '必填' }]"
+            />
+            <van-field
+                type="text"
+                v-model="password"
+                autosize
+                name="password"
+                label="密码："
+                placeholder="输入密码"
+                :rules="[{ required: true, message: '必填' }]"
+            />
+            <van-field
+                type="text"
+                v-model="stepRunNum"
+                autosize
+                name="stepRunNum"
+                label="每日执行次数："
+                placeholder="输入每日执行次数,默认1次"
+            />
+          </div>
+
+          <div style="text-align: center;margin-top: 10px">
+            <van-button type="info" size="small" native-type="submit" style="margin-right: 10px">提交</van-button>
+            <van-button type="info" size="small" color="green" native-type="button" @click="cancel" style="margin-right: 10px">取消</van-button>
+          </div>
         </div>
       </van-form>
 
@@ -37,70 +59,46 @@
 </template>
 
 <script>
-import {qrLogin,checkLogin} from '@/util/jd'
+import {musicEditSave} from '@/util/music'
+import {sportEdit} from '@/util/sport'
 import {Toast} from "vant";
-import { Dialog } from 'vant';
 export default {
   data() {
     return {
-      show: false,
-      qrImg: "",
-      token: null,
-      okl_token: null,
-      onekeylogUrl: "",
-      lsid: "",
-      editShow: false,
-      switchChecked: false,
-      editDate: {},
-      list:[],
-      ptPin:'',
-      task:null,
-      isLoading: false,
-      ptKey:'',
-      settings: {
-      },
+      account: null,
+      password: null,
+      stepRunNum: null,
     };
   },
   mounted(){
     let id = this.$route.query.id;
-    qrLogin().then(res=>{
+    sportEdit({id:id}).then(res=>{
       if(res.code==0){
-        this.qrImg = "data:image/png;base64,"+res.data.qrcode
-        this.onekeylogUrl = res.data.onekeylog_url
-        this.token = res.data.token
-        this.okl_token = res.data.okl_token
-        this.lsid = res.data.lsid
+        this.account = res.data.account;
+        this.password = res.data.password;
+        this.stepRunNum = res.data.stepRunNum;
       }else {
         Toast.fail(res.msg);
       }
     })
-
-    const that = this
-    this.task = setInterval(function () {
-      if(that.token){
-        checkLogin({id:id,token:that.token,okl_token:that.okl_token,lsid:that.lsid}).then(res=>{
-          if(res.code==0){
-            clearInterval(that.task)
-            setTimeout(function () {
-              that.$router.push("/jd/index");
-            },1000)
-
-          }
-        })
-      }
-    },3*1000)
-
-
-  },
-  beforeDestroy(){
-    clearInterval(this.task)
   },
   methods:{
-    shouquan(){
-      window.location.href=this.onekeylogUrl;
+    editForm(data){
+      data.id = this.$route.query.id;
+      const that = this;
+      musicEditSave(data).then(res=>{
+        if(res.code==0){
+          Toast.success("修改成功");
+          setTimeout(function () {
+            that.$router.push("/music/index");
+          },3*1000)
+        }else {
+          Toast.fail(res.msg);
+        }
+      })
     },
     cancel(){
-      this.$router.push("/jd/index");
+      this.$router.push("/music/index");
     },
   },
 };

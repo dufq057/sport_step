@@ -1,7 +1,7 @@
 <template>
   <div>
     <div style="text-align: center">
-      <h2>欢迎来到jd_sign云系统</h2>
+      <h2>欢迎来到music_sign云系统</h2>
       <h5 style="color: orange">每执行一次任务消耗1积分</h5>
     </div>
     <div style="padding: 0 20px;">
@@ -63,7 +63,8 @@
 </template>
 
 <script>
-import {jdSave,musicList,jdDel,jdEditSave,run} from '@/util/music'
+import {musicList,jdDel,run} from '@/util/music'
+import {updateStatus} from '@/util/sport'
 import {Toast} from "vant";
 import { Dialog } from 'vant';
 export default {
@@ -88,6 +89,9 @@ export default {
     addButton(){
       this.$router.push("/music/add");
     },
+    onRefresh() {
+      this.queryList()
+    },
     open(item){
       if(item.isOpen==1){
         Dialog.confirm({
@@ -95,8 +99,16 @@ export default {
           message: '是否关闭代刷功能？',
         }).then(() => {
 
-          this.updateStatus({id:item.id,isOpen:0})
-          item.isOpen = 0
+
+          updateStatus({id:item.id,isOpen:0}).then(res=>{
+            if(res.code==0){
+              Toast.success("操作成功");
+              item.isOpen = 0
+            }else {
+              Toast.fail(res.msg);
+            }
+          })
+
         }).catch(() => {
 
         });
@@ -105,24 +117,20 @@ export default {
           title: '提醒',
           message: '是否打开代刷功能？',
         }).then(() => {
-          this.updateStatus({id:item.id,isOpen:1})
-          item.isOpen = 1
+
+          updateStatus({id:item.id,isOpen:1}).then(res=>{
+            if(res.code==0){
+              Toast.success("操作成功");
+              item.isOpen = 1
+            }else {
+              Toast.fail(res.msg);
+            }
+          })
+
         }).catch(() => {
         });
       }
 
-    },
-    onRefresh() {
-      this.queryList()
-    },
-    updateStatus(data) {
-      updateStatus(data).then(res=>{
-        if(res.code==0){
-          Toast.success("操作成功");
-        }else {
-          Toast.fail(res.msg);
-        }
-      })
     },
     queryList(){
       musicList().then(res=>{
@@ -135,7 +143,7 @@ export default {
       })
     },
     edit(id){
-      this.$router.push({path: '/jd/edit', query: {id: id}});
+      this.$router.push({path: '/music/edit', query: {id: id}});
     },
     del(id){
       Dialog.confirm({

@@ -176,7 +176,7 @@ export default {
       const that = this;
       sportEditSave(data).then(res=>{
         if(res.code==0){
-          Toast.success("添加成功");
+          Toast.success("修改成功");
           this.show = false
         }else {
           Toast.fail(res.msg);

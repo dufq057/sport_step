@@ -62,3 +62,17 @@ export function buildInviteCode(query) {
         params: query
     })
 }
+export function resetPassword(query) {
+    return service({
+        url: '/v1/sport/resetPassword',
+        method: 'post',
+        params: query
+    })
+}
+export function sendEmailByRestPwd(query) {
+    return service({
+        url: '/v1/sport/sendEmailByRestPwd',
+        method: 'post',
+        params: query
+    })
+}
