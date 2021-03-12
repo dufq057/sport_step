@@ -36,6 +36,14 @@ const routes = [
             requiresAuth: false
         }
     },
+    {
+        path: '/setting/invite',
+        name: '邀请好友',
+        component: () => import( '../views/setting/invite'),
+        meta: {
+            requiresAuth: true
+        }
+    },
     // {
     //     path: '/wallet',
     //     name: 'wallet',
@@ -72,8 +80,8 @@ const routes = [
         path: '/sport/edit',
         name: '刷步修改任务',
         component: () => import( '../views/sport/edit.vue'),
-        meta: {
-            requiresAuth: true
+    meta: {
+    requiresAuth: true
         }
     },
     {

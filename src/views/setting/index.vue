@@ -6,6 +6,7 @@
     <van-notice-bar style="margin-top: 10px;margin-bottom: 10px" scrollable text="功能待完善" color="#1989fa" background="#ecf9ff" left-icon="volume-o"/>
 <!--    <van-field  label-width="7.2em" label="appId：" :value="settings.appId" disabled />-->
     <van-cell icon="location-o" title="推荐码" is-link label="修改或关联推荐码" to="/setting/tuiJianMa"/>
+    <van-cell icon="star-o" title="邀请好友" is-link label="获得高额积分" to="/setting/invite"/>
 <!--    <van-field-->
 <!--        v-model="settings.maVersion"-->
 <!--        type="text"-->

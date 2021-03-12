@@ -83,3 +83,10 @@ export function run(query) {
         params: query,
     })
 }
+export function queryUserChildren(query) {
+    return service({
+        url: '/v1/sport/queryUserChildren',
+        method: 'post',
+        params: query,
+    })
+}

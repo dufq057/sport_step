@@ -6,7 +6,7 @@
     </div>
     <div style="padding: 0 20px;">
       <van-button @click="addButton" round type="primary" block color="linear-gradient(to left, #ff6034, #ee0a24)">新增任务</van-button>
-      <van-notice-bar style="margin-top: 10px" scrollable text="打开代刷开关，才会自动每天刷" color="#1989fa" background="#ecf9ff" left-icon="volume-o"/>
+      <van-notice-bar style="margin-top: 10px" scrollable text="打开代刷开关，才会自动每天刷，使用教程找推荐人获取" color="#1989fa" background="#ecf9ff" left-icon="volume-o"/>
 
       <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
       <div v-for="(item,i) in list" :key="i" style="background-color: #FAFAFA;padding: 20px;color: #646566;font-size: 14px;text-align: left;margin-top: 10px;border-radius: 30px">

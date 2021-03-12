@@ -3,9 +3,11 @@
     <div style="text-align: center">
       <h2>用户注册</h2>
     </div>
+    <van-form @submit="submit">
     <van-field
         v-model="mobile"
         type="text"
+        name="mobile"
         colon
         label-width="5em"
         label="手机号码"
@@ -15,6 +17,7 @@
     <van-field
         v-model="email"
         type="text"
+        name="email"
         colon
         label-width="5em"
         label="邮箱"
@@ -25,6 +28,7 @@
         v-model="password"
         type="text"
         colon
+        name="password"
         label-width="5em"
         label="密码"
         placeholder="输入密码"
@@ -33,22 +37,36 @@
     <van-field
         v-model="validateCode"
         label-width="5em"
+        name="validateCode"
         colon
         label="验证码"
         placeholder="输入验证码"
+        :rules="[{ required: true, message: '输入验证码' }]"
     >
       <template #button>
         <van-image @click="imgCode" height="32px" width="82px" :src="imgUrl" />
       </template>
     </van-field>
-
+    <van-field
+        v-model="inviteCode"
+        type="text"
+        colon
+        name="parentId"
+        label-width="5em"
+        label="邀请码"
+        placeholder="输入邀请码,可不填"
+    />
     <div style="margin: 20px;">
-      <van-button round block type="primary" @click="submit">注册</van-button>
+      <van-button round block type="primary" native-type="submit">注册</van-button>
     </div>
+    </van-form>
     <div style="text-align: center;font-size: 14px;color: #606266;">
       <van-row>
         <van-col span="24" ><span class="reg" @click="login">已有账号，点此登录</span></van-col>
       </van-row>
+    </div>
+    <div style="text-align: center;color: red">
+      <h6>注：输入邀请码绑定小程序每人可获得50积分</h6>
     </div>
   </div>
 </template>
@@ -62,8 +80,6 @@
 <script>
 import {register} from '@/util/request'
 import {Dialog, Toast} from 'vant';
-import { token } from '@/util/common';
-import {jdDel} from "@/util/sport";
 
 export default {
   data() {
@@ -72,12 +88,14 @@ export default {
       validateCode: null,
       imgUrl: null,
       email: null,
+      inviteCode: null,
       password: null,
       list: [],
       show: false,
     };
   },
   mounted() {
+    this.inviteCode = this.$route.query.inviteCode;
     this.imgCode();
   },
   methods: {
@@ -87,9 +105,8 @@ export default {
     login() {
       this.$router.push({path: '/login'})
     },
-    submit() {
+    submit(data) {
       const that = this;
-      const data = {mobile: this.mobile,validateCode:this.validateCode,email:this.email,password:this.password}
       register(data).then(response => {
         if (response.code === 0) {
           Dialog.confirm({
