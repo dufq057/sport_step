@@ -1,9 +1,9 @@
 <template>
   <div>
     <div style="text-align: center">
-      <h2>欢迎来到sport_step云系统</h2>
+      <h2>去水印</h2>
       <h5 style="color: orange">每执行一次任务消耗1积分</h5>
-      <h5 style="color: orange;padding: 0 20px">累计模式的任务，每天会消耗10积分【五万步数以下，有效防止好友恶意举报，推荐开启】</h5>
+      <h5 style="color: orange;padding: 0 20px">目前支持：抖音</h5>
     </div>
     <div style="padding: 0 20px;">
       <van-button @click="addButton" round type="primary" block color="linear-gradient(to left, #ff6034, #ee0a24)">新增任务</van-button>
@@ -77,7 +77,11 @@
     </div>
 
 
-    <bottom :active='1'></bottom>
+    <router-view />
+    <van-tabbar route placeholder>
+      <van-tabbar-item replace to="/" icon="home-o">首页</van-tabbar-item>
+      <van-tabbar-item replace to="/setting/index" icon="friends-o">我的</van-tabbar-item>
+    </van-tabbar>
   </div>
 </template>
 
@@ -85,7 +89,6 @@
 import {sportList,jdDel,run,updateStatus} from '@/util/sport'
 import {Toast} from "vant";
 import { Dialog } from 'vant';
-import  bottom  from '@/views/bottom.vue';
 export default {
   data() {
     return {

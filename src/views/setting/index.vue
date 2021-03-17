@@ -5,8 +5,8 @@
     </div>
     <van-notice-bar style="margin-top: 10px;margin-bottom: 10px" scrollable text="功能待完善" color="#1989fa" background="#ecf9ff" left-icon="volume-o"/>
 <!--    <van-field  label-width="7.2em" label="appId：" :value="settings.appId" disabled />-->
-    <van-cell icon="location-o" title="推荐码" is-link label="修改或关联推荐码" to="/setting/tuiJianMa"/>
-    <van-cell icon="star-o" title="邀请好友" is-link label="获得高额积分" to="/setting/invite"/>
+    <van-cell icon="location-o" title="邀请码" is-link label="修改邀请码" to="/setting/tuiJianMa"/>
+<!--    <van-cell icon="star-o" title="邀请好友" is-link label="获得高额积分" to="/setting/invite"/>-->
 <!--    <van-field-->
 <!--        v-model="settings.maVersion"-->
 <!--        type="text"-->
@@ -72,19 +72,18 @@
     </div>
 
 
-    <router-view />
-    <van-tabbar route placeholder >
-      <van-tabbar-item replace to="/" icon="home-o">首页</van-tabbar-item>
-      <van-tabbar-item replace to="/setting/index" icon="friends-o">我的</van-tabbar-item>
-    </van-tabbar>
+    <TabbarHtml v-bind:active=2 ></TabbarHtml>
   </div>
 </template>
 
 <script>
 import {Toast} from "vant";
 import {token} from "@/util/common";
-
+import  TabbarHtml  from '@/views/bottom.vue';
 export default {
+  components:{
+    'TabbarHtml':TabbarHtml
+  },
   data() {
     return {
 

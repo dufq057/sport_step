@@ -1,7 +1,7 @@
 <template>
   <div style="margin-top: 200px">
     <div style="text-align: center">
-      <h2>欢迎来到神马都是浮云</h2>
+      <h2>欢迎来到莓用百宝箱</h2>
     </div>
     <van-field
         v-model="mobile"
@@ -26,7 +26,6 @@
         <van-col span="12" ><span class="reg" @click="resetPwd">忘记密码</span></van-col>
       </van-row>
     </div>
-
   </div>
 </template>
 <style>

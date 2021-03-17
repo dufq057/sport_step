@@ -37,6 +37,14 @@ const routes = [
         }
     },
     {
+        path: '/video/index',
+        name: '去水印',
+        component: () => import( '../views/video/index.vue'),
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
         path: '/setting/invite',
         name: '邀请好友',
         component: () => import( '../views/setting/invite'),
@@ -136,6 +144,14 @@ const routes = [
         path: '/setting/tuiJianMa',
         name: '推荐码',
         component: () => import( '../views/setting/tuiJianMa'),
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/user/integral',
+        name: '赚积分',
+        component: () => import( '../views/user/integral'),
         meta: {
             requiresAuth: true
         }

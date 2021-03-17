@@ -1,7 +1,7 @@
 <template>
   <div>
     <div style="text-align: center">
-      <h2>欢迎来到全智能云系统</h2>
+      <h2>只有想不到，没有做不到</h2>
       <h5 style="color: orange">可用积分：{{user.integralTitle}}</h5>
     </div>
     <div style="padding: 0 20px;">
@@ -12,18 +12,17 @@
       </van-grid>
     </div>
 
-
-    <router-view />
-    <van-tabbar route placeholder>
-      <van-tabbar-item replace to="/" icon="home-o">首页</van-tabbar-item>
-      <van-tabbar-item replace to="/setting/index" icon="friends-o">我的</van-tabbar-item>
-    </van-tabbar>
+    <TabbarHtml v-bind:active=0 ></TabbarHtml>
   </div>
 </template>
 
 <script>
 import {queryUser} from '@/util/sport'
+import  TabbarHtml  from '@/views/bottom.vue';
 export default {
+  components:{
+    'TabbarHtml':TabbarHtml
+  },
   data() {
     return {
       user:{},

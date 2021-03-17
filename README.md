@@ -22,6 +22,8 @@ npm run lint
 
 ### api
 QQ and WX ：517351411<br>
-wx小程序：伽罗百宝箱
+演示环境
+https://cloud.520e.com.cn
+邀请码：666666
 
 

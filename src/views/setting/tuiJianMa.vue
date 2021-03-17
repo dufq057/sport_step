@@ -6,8 +6,8 @@
     <van-field
         v-model="user.inviteCode"
         type="text"
-        label="推荐码："
-        placeholder="输入推荐码"
+        label="邀请码："
+        placeholder="输入邀请码"
         autosize
         label-width="7.2em"
         :rules="[{ required: true, message: '请输入推荐码' }]"
@@ -19,12 +19,7 @@
       <van-button round block type="default" @click="logOut">返回</van-button>
     </div>
 
-
-    <router-view />
-    <van-tabbar route placeholder >
-      <van-tabbar-item replace to="/" icon="home-o">首页</van-tabbar-item>
-      <van-tabbar-item replace to="/setting/index" icon="friends-o">我的</van-tabbar-item>
-    </van-tabbar>
+    <TabbarHtml v-bind:active=2 ></TabbarHtml>
   </div>
 </template>
 
@@ -32,8 +27,12 @@
 import {Toast} from "vant";
 import {buildInviteCode} from "@/util/request";
 import {queryUser} from "@/util/sport";
+import  TabbarHtml  from '@/views/bottom.vue';
 
 export default {
+  components:{
+    'TabbarHtml':TabbarHtml
+  },
   data() {
     return {
       inviteCode:null,

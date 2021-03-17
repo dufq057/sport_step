@@ -51,10 +51,11 @@
         v-model="inviteCode"
         type="text"
         colon
-        name="parentId"
+        name="inviteCode"
         label-width="5em"
         label="邀请码"
-        placeholder="输入邀请码,可不填"
+        placeholder="输入邀请码,跟客服索取"
+        :rules="[{ required: true, message: '输入邀请码,跟客服索取' }]"
     />
     <div style="margin: 20px;">
       <van-button round block type="primary" native-type="submit">注册</van-button>
@@ -66,7 +67,7 @@
       </van-row>
     </div>
     <div style="text-align: center;color: red">
-      <h6>注：输入邀请码绑定小程序每人可获得50积分</h6>
+      <h6>注：邀请码跟客服索取</h6>
     </div>
   </div>
 </template>
